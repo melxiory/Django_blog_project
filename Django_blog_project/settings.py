@@ -24,11 +24,12 @@ SECRET_KEY = 'django-insecure-#%j&yny-x^nau-)enwh**ks6hp2ak3^-46%!*d_g+i_gefr_am
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 # Application definition
 
 INSTALLED_APPS = [
+    "debug_toolbar",
     'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -36,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'blog.apps.BlogConfig',
 ]
 
 MIDDLEWARE = [
@@ -46,6 +48,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = 'Django_blog_project.urls'
@@ -75,8 +78,11 @@ WSGI_APPLICATION = 'Django_blog_project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'postg_db_blog',
+        'USER': 'postgres',
+        'PASSWORD': '559911',
+        'HOST': 'localhost',
     }
 }
 
