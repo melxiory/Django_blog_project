@@ -30,7 +30,7 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 INSTALLED_APPS = [
     "debug_toolbar",
-    'grappelli',
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -133,7 +133,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Tag settings
 TAGGIT_CASE_INSENSITIVE = True
-
 
 ####################################
 ##  CKEDITOR CONFIGURATION ##
