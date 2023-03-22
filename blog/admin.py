@@ -2,7 +2,6 @@ from django.contrib import admin
 from blog.models import Profile, Category, Post, Comment
 
 
-
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     list_display = ('title', 'slug', 'author', 'created_at', 'status')

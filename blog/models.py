@@ -12,7 +12,7 @@ class Profile(models.Model):
     bio = models.TextField(max_length=500, blank=True, verbose_name='О себе')
     location = models.CharField(max_length=30, blank=True, verbose_name='Местонахождение')
     birth_date = models.DateField(null=True, blank=True, verbose_name='День рождения')
-    avatar = models.ImageField(verbose_name='Аватар')
+    avatar = models.ImageField(verbose_name='Аватар', upload_to='media/avatar')
 
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):
@@ -34,7 +34,7 @@ class Profile(models.Model):
 class Category(models.Model):
     title = models.CharField(max_length=50, verbose_name='Название')
     description = models.CharField(max_length=250, verbose_name='Описание')
-    image = models.ImageField(verbose_name='Иконка')
+    image = models.ImageField(verbose_name='Иконка', upload_to='media/category_icons')
 
     def __str__(self):
         return self.title
@@ -51,11 +51,11 @@ class Post(models.Model):
     )
     title = models.CharField(max_length=200, verbose_name='Название')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Категория')
-    slug = models.SlugField(max_length=200, unique_for_date='publish', verbose_name='Слаг')
+    slug = models.SlugField(max_length=200, verbose_name='Слаг')
     tag = TaggableManager(verbose_name='Тэг')
     content = RichTextUploadingField(verbose_name='Содержание')
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_posts', verbose_name='Автор')
-    image = models.ImageField(verbose_name='Картинка')
+    image = models.ImageField(verbose_name='Картинка', upload_to='media/post_img')
     numb_of_views = models.IntegerField(default=0, verbose_name='Количество просмотров')
     created_at = models.DateField(default=timezone.now, verbose_name='Дата создания')
     update_at = models.DateField(auto_now=True, verbose_name='Дата обновления')
