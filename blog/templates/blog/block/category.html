@@ -6,9 +6,9 @@
             </div>
         </div>
 
-        <div class="row justify-content-md-between justify-content-center p-4">
+        <div class="row justify-content-md-start justify-content-center p-4">
             {% for category in categories %}
-                <div class="col-md-3 col-sm-12 m-2 category_card">
+                <div class="col-md-3 col-sm-12 m-4 category_card">
                     <img src={{ category.image.url }} alt="icon" class="category_card__img" height="40px" width="40px">
                     <h5>{{ category.title }}</h5>
                     <p>{{ category.description }}</p>

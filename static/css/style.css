@@ -103,6 +103,10 @@ header {
 .carousel_sect{
     background-color: var(--color_lightgrey);
 }
+
+.carousel_sect a{
+    color: white;
+}
 /* Посты домашней страницы */
 
 .home_posts {

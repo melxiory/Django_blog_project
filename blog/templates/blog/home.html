@@ -17,7 +17,7 @@
                 </div>
                 <div class="carousel-inner">
                     {% for post_c in best_post_week %}
-                        <div class="carousel-item active">
+                        <div class="carousel-item {% cycle 'active' '' ''%}">
                             <img src={{ post_c.image.url }} alt="..." class="d-block w-100">
                             <div class="carousel-caption d-none d-md-block">
                                 <h5>{{ post_c.title }}</h5>

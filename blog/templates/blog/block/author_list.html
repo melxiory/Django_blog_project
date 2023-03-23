@@ -6,9 +6,9 @@
             </div>
         </div>
         <div class="row justify-content-md-between justify-content-center">
+            {% for author in four_authors %}
             <div class="col-md-3 col-sm-12 card align-items-center mt-4">
-                {% for author in four_authors %}
-                <img src={{ author.profile.image.url }} alt="..." class="card-img-top">
+                <img src={{ author.profile.avatar.url }} alt="..." class="card-img-top">
                 <div class="card-body">
                     <h5 class="card-title text-center">{{ author.first_name }} {{ author.last_name }}</h5>
                     <p class="card-text text-center">Content Writer @Company</p>
