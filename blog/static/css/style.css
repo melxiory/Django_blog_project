@@ -157,16 +157,16 @@ header {
 .category_card {
     width: 300px;
     height: 270px;
-    padding: 40px 20px;
+    padding: 30px 20px;
     border: 1px solid var(--color_mediumgrey);
     background-color: white;
 }
 
 .category_card p {
-    font-size: 14px;
+    font-size: 13px;
 }
 
-.category_card img {
+.category_card__img {
     margin-bottom: 20px;
 }
 

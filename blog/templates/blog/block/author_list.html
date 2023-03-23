@@ -1,0 +1,26 @@
+<section class="author_list">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-center mb-5">Список авторов</h2>
+            </div>
+        </div>
+        <div class="row justify-content-md-between justify-content-center">
+            <div class="col-md-3 col-sm-12 card align-items-center mt-4">
+                {% for author in four_authors %}
+                <img src={{ author.profile.image.url }} alt="..." class="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title text-center">{{ author.first_name }} {{ author.last_name }}</h5>
+                    <p class="card-text text-center">Content Writer @Company</p>
+                </div>
+                <div class="cont_icons">
+                    <a href="#" class="bi bi-facebook m-2"></a>
+                    <a href="#" class="bi bi-instagram m-2"></a>
+                    <a href="#" class="bi bi-twitter m-2"></a>
+                    <a href="#" class="bi bi-telegram m-2"></a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

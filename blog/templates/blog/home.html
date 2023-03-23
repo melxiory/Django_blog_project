@@ -1,0 +1,83 @@
+{% extends './base.html' %}
+{% load static %}
+{% block title %}Главная страница{% endblock %}
+
+
+{% block content %}
+    <section class="carousel_sect">
+        <div class="container-fluid">
+            <div id="carouselExampleCaptions" class="carousel slide">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+                            aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+                            aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+                            aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                    {% for post_c in best_post_week %}
+                        <div class="carousel-item active">
+                            <img src={{ post_c.image.url }} alt="..." class="d-block w-100">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5>{{ post_c.title }}</h5>
+                                <p>{{ post_c.content|safe|truncatechars:200 }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+                        data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+                        data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="home_posts">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7 col-sm-12">
+                    <h2 class="best_post_title mb-4">Лучший пост за сегодня</h2>
+                    <div class="best_post">
+                        <img src={{ best_post_today.image.url }} alt="post" class="responsive">
+                        <p class="pers_and_date"><a
+                                href="#">{{ best_post_today.author.first_name }} {{ best_post_today.author.last_name }}</a>
+                            |{{ best_post_today.created_at }}</p>
+                        <h3 class="title_post">{{ best_post_today.title }}</h3>
+                        <p class="context_post">{{ best_post_today.content|safe|truncatechars:200 }}</p>
+                        <div class="col-12">
+                            <a href="#" class="btn btn-outline-success mt-3 best_post_btn">Узнать больше</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5 col-sm-12">
+                    <div class="all_post_title mb-4">
+                        <h2>Все посты</h2>
+                        <p><a href="#">Показать</a></p>
+                    </div>
+                    {% for post_a in five_posts %}
+                        <div class="all_posts mb-4">
+                            <p class="pers_and_date"><a
+                                    href="#">{{ post_a.author.first_name }} {{ post_a.author.last_name }}</a>
+                                |{{ post_a.created_at }}</p>
+                            <h4 class="title_post">{{ post_a.title }}</h4>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+
+    {% include './block/category.html' %}
+    {% include './block/author_list.html' %}
+
+{% endblock %}
+

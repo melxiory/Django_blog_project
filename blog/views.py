@@ -1,41 +1,43 @@
-from django.contrib.auth import login, authenticate
-from django.core.mail import send_mail
-from django.db.models import Q
-from django.http import HttpResponseRedirect, BadHeaderError, HttpResponse
+# from django.contrib.auth import login, authenticate
+# from django.core.mail import send_mail
+# from django.db.models import Q
+# from django.http import HttpResponseRedirect, BadHeaderError, HttpResponse
+from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404
 from django.views import View
-from django.core.paginator import Paginator
-from taggit.models import Tag
+# from django.core.paginator import Paginator
+# from taggit.models import Tag
 from blog.models import Profile, Category, Post, Comment
 
 
 class MainView(View):
     def get(self, request, *args, **kwargs):
         five_posts = Post.objects.all()[:5]
-        best_post_today = Post.objects.all()[:1]
+        best_post_today = Post.objects.all()[1]
         best_post_week = Post.objects.all()[:3]
         categories = Category.objects.all()
-        four_authors = Profile.objects.all()[:4]
+        four_authors = User.objects.all()[:4]
 
         return render(request, 'blog/home.html', context={
             'five_posts': five_posts,
             'best_post_today': best_post_today,
             'best_post_week': best_post_week,
             'categories': categories,
+            'four_authors': four_authors
         })
 
 
-class PostsView(View):
-    def get(self, request, *args, **kwargs):
-        posts = Post.objects.all()
-        paginator = Paginator(posts, 6)
-
-        page_number = request.GET.get('page')
-        page_obj = paginator.get_page(page_number)
-
-        return render(request, 'myblog/home.html', context={
-            'page_obj': page_obj
-        })
+# class PostsView(View):
+#     def get(self, request, *args, **kwargs):
+#         posts = Post.objects.all()
+#         paginator = Paginator(posts, 6)
+#
+#         page_number = request.GET.get('page')
+#         page_obj = paginator.get_page(page_number)
+#
+#         return render(request, 'myblog/home.html', context={
+#             'page_obj': page_obj
+#         })
 
 
 # class PostDetailView(View):

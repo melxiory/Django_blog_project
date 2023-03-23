@@ -1,3 +1,4 @@
+{% load static %}
 <footer>
     <div class="container-fluid">
         <nav class="navbar navbar-expand-lg bg-body-tertiary nav_mod" data-bs-theme="dark">
@@ -11,19 +12,19 @@
                     <a class="navbar-brand" href="{% url 'main' %}">Melxiory</a>
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'main' %}">Дом</a>
+                            <a class="nav-link" href="#">Дом</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'blog' %}">Блог</a>
+                            <a class="nav-link" href="#">Блог</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'contact' %}">Связь</a>
+                            <a class="nav-link" href="#">Связь</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'about_us' %}">О нас</a>
+                            <a class="nav-link" href="#">О нас</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'privacy_policy' %}">Политика конфеденциальности</a>
+                            <a class="nav-link" href="#">Политика конфеденциальности</a>
                         </li>
                     </ul>
                 </div>
@@ -34,7 +35,7 @@
                 <p class="subscribe_title m-0">Подпишитесь на нашу рассылку, чтобы получать последние обновления и новости</p>
             </div>
             <div class="col-md-6 col-sm-12 email_subs">
-                <form action="{% url 'subscribe' %}" class="row row-cols-lg-auto">
+                <form action="#" class="row row-cols-lg-auto">
                     <div class="col-sm-10 mt-lg-0 mt-3">
                         <input type="email" class="form-control" id="colFormLabel" placeholder="Enter Your Email">
                     </div>
