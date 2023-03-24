@@ -1,0 +1,67 @@
+{% extends './base.html' %}
+{% load static %}
+{% block title %}Главная страница{% endblock %}
+
+
+{% block content %}
+    <section class="contact__content">
+        <div class="container text-center p-lg-format p-md-format">
+            <div class="row mb-4">
+                <p class="text-uppercase">Обратная связь</p>
+            </div>
+            <div class="row mb-4">
+                <h1>Как мы можем тебе помочь?</h1>
+            </div>
+            <div class="row mb-4">
+                <p>Используйте нашу контактную форму для всех информационных запросов или свяжитесь с нами напрямую,
+                    используя контактную информацию ниже.</p>
+            </div>
+            <div class="row contact__content__contacts mb-5 m-0">
+                <div class="col-md-6 col-sm-12 text-start">
+                    <p>Рабочие часы</p>
+                    <hr>
+                    <h4>С Понедельника по Пятницу</h4>
+                    <h4>С 9:00 до 20:00</h4>
+                    <p>Наша служба поддержки доступна 24/7</p>
+                </div>
+                <div class="col-md-6 col-sm-12 text-start">
+                    <p>Контакты</p>
+                    <hr>
+                    <h4>+7 999 999 99 99</h4>
+                    <p>hello@finsweet.com</p>
+                </div>
+            </div>
+            <form name="contact-form" method="post" action="{% url 'contact' %}" class="row m-0">
+                <div class="col-12 form-floating mb-3 p-0">
+                    <textarea class="form-control" placeholder="Leave a comment here"
+                              id="floatingTextareaDisabled"></textarea>
+                    <label for="floatingTextareaDisabled">ФИО</label>
+                </div>
+                <div class="col-12 form-floating mb-3 p-0">
+                    <input type="email" class="form-control" id="floatingInputDisabled" placeholder="name@example.com">
+                    <label for="floatingInputDisabled">Email адресс</label>
+                </div>
+                <div class="col-12 form-floating mb-3 p-0">
+                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2Disabled"
+                              style="height: 100px"></textarea>
+                    <label for="floatingTextarea2Disabled">Комментарий</label>
+                </div>
+                <div class="col-12 form-floating p-0">
+                    <select class="form-select" id="floatingSelectDisabled"
+                            aria-label="Floating label disabled select example">
+                        <option selected>-</option>
+                        <option value="1">Комментарий</option>
+                        <option value="2">Пост</option>
+                        <option value="3">Учетная записьe</option>
+                    </select>
+                    <label for="floatingSelectDisabled">Категории</label>
+                </div>
+                <div class="col-12 p-0 mt-5">
+                    <button type="submit" class="btn btn-outline-success best_post_btn contact__content__btn ">Отправить
+                        запрос
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+{% endblock %}

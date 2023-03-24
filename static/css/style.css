@@ -97,6 +97,7 @@ header {
 
 .carousel_sect .container-fluid {
     max-width: 1440px;
+    max-height: 600px;
     padding: 0;
 }
 

@@ -28,9 +28,9 @@
                 </form>
                 {% if user.is_authenticated %}
                 <span class="navbar-text me-3">{{ user }}</span>
-                <a href="#" class="btn btn-outline-success mt-2 mb-2 btn_sign_up">Выйти</a>
+                <a href="{% url 'signout' %}" class="btn btn-outline-success mt-2 mb-2 btn_sign_up">Выйти</a>
                 {% else %}
-                <a href="#" class="btn btn-outline-success mt-2 mb-2 btn_sign_up">Войти</a>
+                <a href="{% url 'signin' %}" class="btn btn-outline-success mt-2 mb-2 btn_sign_up">Войти</a>
                 {% endif %}
             </nav>
         </div>

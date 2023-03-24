@@ -51,6 +51,9 @@
                                 href="#">{{ best_post_today.author.first_name }} {{ best_post_today.author.last_name }}</a>
                             |{{ best_post_today.created_at }}</p>
                         <h3 class="title_post">{{ best_post_today.title }}</h3>
+                        {% for tag in best_post_today.tag.all %}
+                                <span><a href="#" class="mr-1 badge badge-info">#{{ tag }}</a></span>
+                        {% endfor %}
                         <p class="context_post">{{ best_post_today.content|safe|truncatechars:200 }}</p>
                         <div class="col-12">
                             <a href="#" class="btn btn-outline-success mt-3 best_post_btn">Узнать больше</a>
