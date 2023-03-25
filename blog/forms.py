@@ -86,8 +86,8 @@ class FeedBackForm(forms.Form):
         max_length=100,
         widget=forms.TextInput(attrs={
             'class': 'form-control',
-            'id': 'name',
-            'placeholder': "Ваше имя"
+            'id': 'full_name',
+            'placeholder': "ФИО"
         })
     )
     email = forms.CharField(
@@ -103,15 +103,21 @@ class FeedBackForm(forms.Form):
             'class': 'form-control md-textarea',
             'id': 'message',
             'rows': 2,
-            'placeholder': "Ваше сообщение"
+            'placeholder': "Ваше сообщение",
+            'style': "height: 100px"
         })
     )
-    subject = forms.Select(
+    CATEGORY_CHOICES = [
+        ('none', '-'),
+        ('comment', 'Комментарий'),
+        ('post', 'Пост'),
+        ('account', 'Учетная запись'),
+    ]
+    subject = forms.CharField(
         widget=forms.Select(attrs={
-            'class': 'form-control',
+            'class': 'form-select',
             'id': 'subject',
-            'placeholder': "Тема"
-        })
+        }, choices=CATEGORY_CHOICES)
     )
 
 #

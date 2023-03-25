@@ -1,0 +1,54 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block title %}Главная страница{% endblock %}
+
+
+{% block content %}
+
+    <section class="author__title">
+        <div class="container p-lg-format p-md-format">
+            <div class="row mb-md-5 mb-sm-3 mb-2">
+                <div class="col-lg-3 col-sm-12 p-0">
+                    <img src="{{ author.profile.avatar.url }}" alt="author" class="responsive">
+                </div>
+                <div class="col-lg-9 col-sm-12 d-flex flex-column justify-content-center">
+                    <h1 class="mb-4">Привет, Меня зовут <span>{{ author.last_name }} {{ author.last_name }}</span> и
+                        добро пожаловать в мой блог!</h1>
+                    <p class="mb-4">Важно заботиться о пациенте, следить за врачом, но это время великой боли и
+                        страданий. Ибо масса тоже не льстит. Шоколадный мультфильм в каком-то салате. Но смех адиписца
+                        на земле.</p>
+                    <div class="cont_icons mb-4">
+                        <a href="#" class="bi bi-facebook m-2"></a>
+                        <a href="#" class="bi bi-instagram m-2"></a>
+                        <a href="#" class="bi bi-twitter m-2"></a>
+                        <a href="#" class="bi bi-telegram m-2"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="row author__title__line">
+                <img src={% static 'img/line.png' %} alt="line" class="responsive p-0">
+            </div>
+        </div>
+    </section>
+
+    <section class="author__my_post">
+        <div class="container p-lg-format p-md-format">
+            <div class="row">
+                <h1 class="mb-5">Мои посты</h1>
+            </div>
+            {% for post in my_posts %}
+                <div class="row mb-5">
+                    <div class="col-md-5 col-sm-12 blog_all_post__content__img">
+                        <img src={{ post.image.url }} alt="post_img" class="responsive">
+                    </div>
+                    <div class="col-md-7 col-sm-12 d-flex flex-column justify-content-center">
+                        <p class="text-uppercase pers_and_date"><a href="#">{{ post.category }}</a></p>
+                        <h3 class="title_post mb-3">{{ post.title }}</h3>
+                        <p class="context_post">{{ post.content|safe|truncatechars:200 }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
+{% endblock %}

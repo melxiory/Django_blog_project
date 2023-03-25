@@ -29,6 +29,18 @@ class MainView(View):
         })
 
 
+class AuthorPage(View):
+    def get(self, request, *args, **kwargs):
+        username = kwargs['user_name']
+        author = User.objects.get(username=username)
+        my_posts = Post.objects.filter(author=author.id)
+
+        return render(request, 'blog/author_page.html', context={
+            'my_posts': my_posts,
+            'author': author,
+        })
+
+
 # class PostsView(View):
 #     def get(self, request, *args, **kwargs):
 #         posts = Post.objects.all()
@@ -112,6 +124,7 @@ class PrivacyPolicy(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'blog/privacy_policy.html')
 
+
 class FeedBackView(View):
     def get(self, request, *args, **kwargs):
         form = FeedBackForm()
@@ -124,25 +137,26 @@ class FeedBackView(View):
         if form.is_valid():
             full_name = form.cleaned_data['full_name']
             from_email = form.cleaned_data['email']
-            subject = form.cleaned_data['subject']
             message = form.cleaned_data['message']
+            subject = form.cleaned_data['subject']
             try:
                 send_mail(f'От {full_name} | {subject}', message, from_email, ['sibagatullinnail@gmail.com'])
             except BadHeaderError:
                 return HttpResponse('Невалидный заголовок')
-            return HttpResponseRedirect('success')
+            return HttpResponseRedirect('/')
         return render(request, 'blog/contact.html', context={
             'form': form,
         })
 
-#
-# class SuccessView(View):
-#     def get(self, request, *args, **kwargs):
-#         return render(request, 'myblog/success.html', context={
-#             'title': 'Спасибо'
-#         })
-#
-#
+
+class AboutUSView(View):
+    def get(self, request, *args, **kwargs):
+        four_authors = User.objects.all()[:4]
+        return render(request, 'blog/about_us.html', context={
+            'four_authors': four_authors
+        })
+
+
 # class SearchResultsView(View):
 #     def get(self, request, *args, **kwargs):
 #         query = self.request.GET.get('q')

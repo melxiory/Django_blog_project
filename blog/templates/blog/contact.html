@@ -31,29 +31,36 @@
                     <p>hello@finsweet.com</p>
                 </div>
             </div>
+            {% if form.errors %}
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <div class="alert alert-danger">
+                            <strong>{{ error|escape }}</strong>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <div class="alert alert-danger">
+                        <strong>{{ error|escape }}</strong>
+                    </div>
+                {% endfor %}
+            {% endif %}
             <form name="contact-form" method="post" action="{% url 'contact' %}" class="row m-0">
+                {% csrf_token %}
                 <div class="col-12 form-floating mb-3 p-0">
-                    <textarea class="form-control" placeholder="Leave a comment here"
-                              id="floatingTextareaDisabled"></textarea>
-                    <label for="floatingTextareaDisabled">ФИО</label>
+                    {{ form.full_name }}
+                    <label for="full_name">ФИО</label>
                 </div>
                 <div class="col-12 form-floating mb-3 p-0">
-                    <input type="email" class="form-control" id="floatingInputDisabled" placeholder="name@example.com">
-                    <label for="floatingInputDisabled">Email адресс</label>
+                    {{ form.email }}
+                    <label for="email">Email адресс</label>
                 </div>
                 <div class="col-12 form-floating mb-3 p-0">
-                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2Disabled"
-                              style="height: 100px"></textarea>
-                    <label for="floatingTextarea2Disabled">Комментарий</label>
+                    {{ form.message }}
+                    <label for="message">Комментарий</label>
                 </div>
                 <div class="col-12 form-floating p-0">
-                    <select class="form-select" id="floatingSelectDisabled"
-                            aria-label="Floating label disabled select example">
-                        <option selected>-</option>
-                        <option value="1">Комментарий</option>
-                        <option value="2">Пост</option>
-                        <option value="3">Учетная записьe</option>
-                    </select>
+                    {{ form.subject }}
                     <label for="floatingSelectDisabled">Категории</label>
                 </div>
                 <div class="col-12 p-0 mt-5">

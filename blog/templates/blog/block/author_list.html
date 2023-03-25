@@ -10,7 +10,7 @@
             <div class="col-md-3 col-sm-12 card align-items-center mt-4">
                 <img src={{ author.profile.avatar.url }} alt="..." class="card-img-top">
                 <div class="card-body">
-                    <h5 class="card-title text-center">{{ author.first_name }} {{ author.last_name }}</h5>
+                    <a href="{% url 'author_page' author.username %}"><h5 class="card-title text-center">{{ author.first_name }} {{ author.last_name }}</h5></a>
                     <p class="card-text text-center">Content Writer @Company</p>
                 </div>
                 <div class="cont_icons">

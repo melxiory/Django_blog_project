@@ -1,4 +1,4 @@
-{% extends './base.html' %}
+{% extends 'blog/base.html' %}
 {% load static %}
 {% block title %}Главная страница{% endblock %}
 
@@ -18,7 +18,7 @@
                 <div class="carousel-inner">
                     {% for post_c in best_post_week %}
                         <div class="carousel-item {% cycle 'active' '' ''%}">
-                            <img src={{ post_c.image.url }} alt="..." class="d-block w-100">
+                            <img src={{ post_c.image.url }} alt="img" class="d-block w-100">
                             <div class="carousel-caption d-none d-md-block">
                                 <h5>{{ post_c.title }}</h5>
                                 <p>{{ post_c.content|safe|truncatechars:200 }}</p>
@@ -68,7 +68,7 @@
                     {% for post_a in five_posts %}
                         <div class="all_posts mb-4">
                             <p class="pers_and_date"><a
-                                    href="#">{{ post_a.author.first_name }} {{ post_a.author.last_name }}</a>
+                                    href={% url 'author_page' post_a.author.username %}>{{ post_a.author.first_name }} {{ post_a.author.last_name }}</a>
                                 |{{ post_a.created_at }}</p>
                             <h4 class="title_post">{{ post_a.title }}</h4>
                         </div>
@@ -76,11 +76,10 @@
                 </div>
             </div>
         </div>
-        </div>
     </section>
 
-    {% include './block/category.html' %}
-    {% include './block/author_list.html' %}
+    {% include 'blog/block/category.html' %}
+    {% include 'blog/block/author_list.html' %}
 
 {% endblock %}
 

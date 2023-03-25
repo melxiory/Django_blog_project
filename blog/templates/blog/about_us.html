@@ -1,0 +1,61 @@
+{% extends './base.html' %}
+{% load static %}
+{% block title %}О нас{% endblock %}
+
+
+{% block content %}
+
+    <section class="about_us__title">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <p class="text-uppercase">Наша миссия</p>
+                    <h3>Создание ценного контента для креативщиков по всему миру</h3>
+                    <p>Важно заботиться о пациенте, следить за врачом, но это время великой боли и страданий. Ибо масса
+                        тоже не льстит. Шоколадный мультфильм в каком-то салате. Но смех адиписца на земле.</p>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <p class="text-uppercase">Наше педназначение</p>
+                    <h3>Платформа, которая позволяет людям совершенствоваться</h3>
+                    <p>Важно заботиться о пациенте, следить за врачом, но это время великой боли и страданий. Ибо масса
+                        тоже не льстит. Шоколадный мультфильм в каком-то салате. Но смех адиписца на земле.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about_us__content">
+        <div class="container-fluid">
+            <div class="row mb-5">
+                <div class="col-md-7 col-sm-12 d-flex flex-column justify-content-center">
+                    <h3 class="title_post mb-3">Наша команда креативщиков</h3>
+                    <h5>Для клиента очень важно следовать обучению клиента, но это то, что происходит одновременно.</h5>
+                    <p class="context_post">Важно заботиться о пациенте, следить за врачом, но это время великой боли и
+                        страданий. Ибо, говоря в мельчайших подробностях, никто не должен заниматься какой-либо работой,
+                        если он не извлечет из нее какой-либо пользы. Не сердитесь на боль в упрек, в наслаждении он
+                        хочет быть пером от боли и убежать.</p>
+                </div>
+                <div class="col-md-5 col-sm-12 blog_all_post__content__img">
+                    <img src="{% static 'img/about_us_1.png' %}" alt="post_img" class="responsive">
+                </div>
+            </div>
+            <div class="row mb-5">
+                <div class="col-md-5 col-sm-12 blog_all_post__content__img">
+                    <img src="{% static 'img/about_us_2.png' %}" alt="post_img" class="responsive">
+                </div>
+                <div class="col-md-7 col-sm-12 d-flex flex-column justify-content-center">
+                    <h3 class="title_post mb-3">Наша команда креативщиков</h3>
+                    <h5>Для клиента очень важно следовать обучению клиента, но это то, что происходит одновременно.</h5>
+                    <p class="context_post">Важно заботиться о пациенте, следить за врачом, но это время великой боли и
+                        страданий. Ибо, говоря в мельчайших подробностях, никто не должен заниматься какой-либо работой,
+                        если он не извлечет из нее какой-либо пользы. Не сердитесь на боль в упрек, в наслаждении он
+                        хочет быть пером от боли и убежать.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    {% include './block/author_list.html' %}
+
+{% endblock %}

@@ -11,8 +11,10 @@ urlpatterns = [
     path('signin/', SignInView.as_view(), name='signin'),
     path('signout/', LogoutView.as_view(), {'next_page': settings.LOGOUT_REDIRECT_URL}, name='signout', ),
     path('contact/', FeedBackView.as_view(), name='contact'),
-    # path('contact/success/', SuccessView.as_view(), name='success'),
+    path('success/', AboutUSView.as_view(), name='about_us'),
     # path('search/', SearchResultsView.as_view(), name='search_results'),
     # path('tag/<slug:slug>/', TagView.as_view(), name="tag"),
-    path('privacy-policy/', PrivacyPolicy.as_view(), name='privacy_policy')
+    # path('category/<str:category_title>/', CategoryView.as_view(), name="category"),
+    path('privacy-policy/', PrivacyPolicy.as_view(), name='privacy_policy'),
+    path('<str:user_name>', AuthorPage.as_view(), name='author_page')
 ]
