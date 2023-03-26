@@ -1,10 +1,64 @@
 {% extends 'blog/base.html' %}
 {% load static %}
-{% block title %}Главная страница{% endblock %}
+{% block title %}Страница поста{% endblock %}
 
 
 {% block content %}
 
+    <section class="blog_post__title">
+        <div class="container">
+            <div class="row blog_post__title__content p-lg-format p-md-format">
+                <div class="d-flex flex-row blog_post__title__content__title">
+                    <div class="blog_post__title__content__title__img me-2">
+                        <img src={{ post.author.profile.avatar.url }} alt="author" class="responsive">
+                    </div>
+                    <div class="d-flex flex-column">
+                        <h5 class="pers_and_date"><a
+                                href="{% url 'author_page' post.author.username %}">{{ post.author.first_name }} {{ post.author.last_name }}</a>
+                        </h5>
+                        <p>Опубликовано {{ post.created_at }}</p>
+                    </div>
+                </div>
+                <h2 class="mb-5 mt-5">{{ post.title }}</h2>
+                <div class="d-flex flex-row blog_post__title__content__category mb-5">
+                    <img src="{{ post.category.image.url }}" alt="icon" class="responsive">
+                    <p class="text-uppercase pers_and_date m-0 ms-2"><a href="#">{{ post.category.title }}</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <section class="blog_post__post">
+        <div class="container-fluid">
+            <div class="row blog_post__post__image">
+                <img src="{{ post.image.url }}" alt="author" class="responsive">
+            </div>
+            <div class="row md-4 mt-4 blog_post__post__text p-lg-format p-md-format">
+                {{ post.content|safe }}
+            </div>
+        </div>
+    </section>
+
+    <section class="blog_post__cards_read_next">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <h2>Что читать следующим</h2>
+                </div>
+            </div>
+            <div class="row">
+                {% for post_n in last_posts %}
+                    <div class="col-md-4 col-sm-12">
+                        <img src="{{ post_n.image.url }}" alt="post" class="responsive">
+                        <p class="pers_and_date mt-4"><a
+                                href="{% url 'author_page' post_n.author.username %}">{{ post_n.author.first_name }} {{ post_n.author.last_name }}</a>
+                            | {{ post_n.created_at }}</p>
+                        <a href="{% url 'post_detail' post_n.slug %}"><h3 class="title_post">{{ post_n.title }}</h3></a>
+                        <p class="context_post">{{ post_n.content|safe|truncatechars:200 }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
 
 {% endblock %}

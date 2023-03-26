@@ -6,7 +6,7 @@ from blog.views import *
 urlpatterns = [
     path('', MainView.as_view(), name='main'),
     # path('blog/<slug>/', PostsView.as_view(), name='posts'),
-    # path('blog/<slug>/', PostDetailView.as_view(), name='post_detail'),
+    path('blog/<slug>/', PostDetailView.as_view(), name='post_detail'),
     path('signup/', SignUpView.as_view(), name='signup'),
     path('signin/', SignInView.as_view(), name='signin'),
     path('signout/', LogoutView.as_view(), {'next_page': settings.LOGOUT_REDIRECT_URL}, name='signout', ),

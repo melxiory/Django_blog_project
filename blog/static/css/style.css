@@ -41,11 +41,16 @@ a{
 
 h1, h2, h3, h4, h5, .contact__content__btn{
     font-weight: bold;
+    color: black;
 }
 
 .badge-info{
     color: white;
     background-color: var(--color_purple);
+}
+
+.cont_icons a{
+    color: black;
 }
 
 /*######### HOME ##########*/
@@ -343,29 +348,49 @@ footer .cont_icons{
     padding: 80px 0;
 }
 
-.blog_post__post__content {
+
+.blog_post__title{
+    background-color: var(--color_lightgrey);
+}
+
+.blog_post__title .container{
+    max-width: 1440px;
+}
+
+.blog_post__title__content {
     padding: 40px ;
 }
 
-.blog_post__post__content__title {
+.blog_post__title__content__title {
     height: 60px;
 }
 
-.blog_post__post__title__content__img {
+.blog_post__title__content__title__img {
     width: 60px;
 }
 
-.blog_post__post__title__img img{
+.blog_post__title__content__title__img img{
     border-radius: 50%;
+    width: 60px;
+    height: 60px;
 }
 
-.blog_post__post__text ul {
-    padding: 0 0 0 40px;
+.blog_post__post__text img{
+    max-width: 1040px;
+    object-fit: cover;
+}
+
+.blog_post__title__content__category {
+    height: 20px;
 }
 
 /* Карты следующих постов */
 
 .blog_post__cards_read_next {
+    background-color: var(--color_lightgrey);
+}
+
+.blog_post__cards_read_next .container {
     max-width: 1440px;
     padding: 80px 0;
 }
