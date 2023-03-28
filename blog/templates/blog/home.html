@@ -20,7 +20,7 @@
                         <div class="carousel-item {% cycle 'active' '' '' %}">
                             <img src={{ post_c.image.url }} alt="img" class="d-block w-100">
                             <div class="carousel-caption d-none d-md-block">
-                                <h5>{{ post_c.title }}</h5>
+                                <a href="{% url 'post_detail' post_c.slug %}"><h5>{{ post_c.title }}</h5></a>
                                 <p>{{ post_c.content|safe|truncatechars:200 }}</p>
                             </div>
                         </div>
@@ -48,11 +48,11 @@
                     <div class="best_post">
                         <img src={{ best_post_today.image.url }} alt="post" class="responsive">
                         <p class="pers_and_date"><a
-                                href="#">{{ best_post_today.author.first_name }} {{ best_post_today.author.last_name }}</a>
+                                href="{% url 'author_page' best_post_today.author.username %}">{{ best_post_today.author.first_name }} {{ best_post_today.author.last_name }}</a>
                             |{{ best_post_today.created_at }}</p>
                         <h3 class="title_post">{{ best_post_today.title }}</h3>
                         {% for tag in best_post_today.tag.all %}
-                            <span><a href="#" class="mr-1 badge badge-info">#{{ tag }}</a></span>
+                            <span><a href="{% url 'tag' tag.slug %}" class="mr-1 badge badge-info">#{{ tag }}</a></span>
                         {% endfor %}
                         <p class="context_post">{{ best_post_today.content|safe|truncatechars:200 }}</p>
                         <div class="col-12">
@@ -64,7 +64,7 @@
                 <div class="col-md-5 col-sm-12">
                     <div class="all_post_title mb-4">
                         <h2>Все посты</h2>
-                        <p><a href="#">Показать</a></p>
+                        <p><a href="{% url 'posts' %}">Показать</a></p>
                     </div>
                     {% for post_a in five_posts %}
                         <div class="all_posts mb-4">

@@ -1,24 +1,40 @@
 {% extends 'blog/base.html' %}
 {% load static %}
-{% block title %}Поиск по тегу{% endblock %}
+{% block title %}Поиск{% endblock %}
 
 
 {% block content %}
-
+    {#    <div class="container-fluid home-slider">#}
+    {#        <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">#}
+    {#            <div class="carousel-inner">#}
+    {#                <div class="carousel-item active" style="background-color: #343a40!important">#}
+    {#                    <div class="carousel-caption d-none d-md-block">#}
+    {#                        <form action="{% url 'search_results' %}" method="get" class="my-2 my-lg-0">#}
+    {#                            <input name="q" type="text" class="form-control" placeholder="Поиск" aria-label="Поиск">#}
+    {#                            <button class="btn btn-outline-success mt-3" type="submit">Поиск</button>#}
+    {#                        </form>#}
+    {#                    </div>#}
+    {#                </div>#}
+    {#            </div>#}
+    {#        </div>#}
+    {#    </div>#}
     <section class="category__title">
         <div class="container">
             <div class="row text-center">
                 <div class="col-12 mb-4">
-                    <h1>{{ title }}</h1>
+                    <form action="{% url 'search_results' %}" method="get" class="my-2 my-lg-0">
+                        <input name="q" type="text" class="form-control" placeholder="Поиск" aria-label="Поиск">
+                        <button class="btn btn-outline-success mt-3 best_post_btn" type="submit">Поиск</button>
+                    </form>
                 </div>
             </div>
         </div>
     </section>
-
     <section class="category__content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-9 col-sm-12">
+                <div class="col-sm-12">
+                    <p class="lead mb-4">Найдено записей: {{ count }}</p>
                     {% for post in page_obj %}
                         <div class="row mb-5 align-items-center">
                             <div class="col-md-5 col-sm-12">
@@ -40,38 +56,11 @@
                         </div>
                     {% endfor %}
                 </div>
-                <div class="col-md-3 col-sm-12 ps-sm-5">
-                    <div class="row category__content__category">
-                        <div class="col-12 mb-4">
-                            <h2>Category</h2>
-                        </div>
-                        {% for category in categories %}
-                            <a href="#" class="col-12 mb-3">
-                                <a href="{% url 'category' category.slug %}"
-                                   class="btn btn-outline-success category__content__category__btn">
-                                    <img class="me-2" src="{{ category.image.url }}" alt="categ"> {{ category.title }}
-                                </a>
-                            </a>
-                        {% endfor %}
-                    </div>
-                    <div class="row mt-5 md-4 category__content__tags">
-                        <div class="col-12 mb-4">
-                            <h2>Tags</h2>
-                        </div>
-                        <div class="col-12 d-flex flex-wrap">
-                            {% for tag in common_tags %}
-                                <a href="{% url 'tag' tag.slug %}" class="btn btn-outline-success tag_btn m-2"
-                                   type="submit">{{ tag.name }}</a>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
-
 {% endblock %}
 
 {% block pagination %}
-    {% include 'blog/block/paginator.html' %}
+    {% include 'blog/block/paginator.html' %} }
 {% endblock %}

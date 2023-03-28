@@ -1,14 +1,13 @@
 from django.contrib.auth import login, authenticate
 from django.core.mail import send_mail
-# from django.core.mail import send_mail
-# from django.db.models import Q
+from django.db.models import Q
 from django.http import HttpResponseRedirect, BadHeaderError, HttpResponse
 from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404
 from django.views import View
-# from django.core.paginator import Paginator
-# from taggit.models import Tag
-from blog.models import Profile, Category, Post, Comment
+from django.core.paginator import Paginator
+from taggit.models import Tag
+from blog.models import Category, Post, Comment
 from .forms import SignInForm, SigUpForm, FeedBackForm
 
 
@@ -30,8 +29,8 @@ class MainView(View):
 
 
 class AuthorPage(View):
-    def get(self, request, *args, **kwargs):
-        username = kwargs['user_name']
+    def get(self, request, user_name, *args, **kwargs):
+        username = get_object_or_404(User, username=user_name)
         author = User.objects.get(username=username)
         my_posts = Post.objects.filter(author=author.id)
 
@@ -41,17 +40,18 @@ class AuthorPage(View):
         })
 
 
-# class PostsView(View):
-#     def get(self, request, *args, **kwargs):
-#         posts = Post.objects.all()
-#         paginator = Paginator(posts, 6)
-#
-#         page_number = request.GET.get('page')
-#         page_obj = paginator.get_page(page_number)
-#
-#         return render(request, 'myblog/home.html', context={
-#             'page_obj': page_obj
-#         })
+class PostsView(View):
+    def get(self, request, *args, **kwargs):
+        posts = Post.objects.all()
+        paginator = Paginator(posts, 6)
+        best_post_today = Post.objects.all()[1]
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+
+        return render(request, 'blog/posts.html', context={
+            'page_obj': page_obj,
+            'best_post_today': best_post_today
+        })
 
 
 class PostDetailView(View):
@@ -155,31 +155,53 @@ class AboutUSView(View):
         })
 
 
-# class SearchResultsView(View):
-#     def get(self, request, *args, **kwargs):
-#         query = self.request.GET.get('q')
-#         results = ""
-#         if query:
-#             results = Post.objects.filter(
-#                 Q(h1__icontains=query) | Q(content__icontains=query)
-#             )
-#         paginator = Paginator(results, 6)
-#         page_number = request.GET.get('page')
-#         page_obj = paginator.get_page(page_number)
-#         return render(request, 'myblog/search.html', context={
-#             'title': 'Поиск',
-#             'results': page_obj,
-#             'count': paginator.count
-#         })
-#
-#
-# class TagView(View):
-#     def get(self, request, slug, *args, **kwargs):
-#         tag = get_object_or_404(Tag, slug=slug)
-#         posts = Post.objects.filter(tag=tag)
-#         common_tags = Post.tag.most_common()
-#         return render(request, 'myblog/tag.html', context={
-#             'title': f'#ТЕГ {tag}',
-#             'posts': posts,
-#             'common_tags': common_tags
-#         })
+class SearchResultsView(View):
+    def get(self, request, *args, **kwargs):
+        query = self.request.GET.get('q')
+        results = ""
+        if query:
+            results = Post.objects.filter(
+                Q(title__icontains=query) | Q(content__icontains=query)
+            )
+        paginator = Paginator(results, 6)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        return render(request, 'blog/search.html', context={
+            'title': 'Поиск',
+            'page_obj': page_obj,
+            'count': paginator.count
+        })
+
+
+class TagView(View):
+    def get(self, request, slug, *args, **kwargs):
+        tag = get_object_or_404(Tag, slug=slug)
+        posts = Post.objects.filter(tag=tag)
+        paginator = Paginator(posts, 6)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        common_tags = Post.tag.most_common()
+        categories = Category.objects.all()[:6]
+        return render(request, 'blog/tag.html', context={
+            'title': f'#ТЕГ {tag}',
+            'page_obj': page_obj,
+            'common_tags': common_tags,
+            'categories': categories,
+        })
+
+
+class CategoryView(View):
+    def get(self, request, slug, *args, **kwargs):
+        category = get_object_or_404(Category, slug=slug)
+        posts = Post.objects.filter(category=category)
+        paginator = Paginator(posts, 6)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        common_tags = Post.tag.most_common()
+        categories = Category.objects.all()[:6]
+        return render(request, 'blog/categories.html', context={
+            'title': category,
+            'page_obj': page_obj,
+            'common_tags': common_tags,
+            'categories': categories,
+        })

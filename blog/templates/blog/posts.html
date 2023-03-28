@@ -5,6 +5,67 @@
 
 {% block content %}
 
+    <section class="blog_best_post">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-sm-12 d-flex flex-column justify-content-center">
+                    <p class="text-uppercase">Лучший пост за сегодня</p>
+                    <h3 class="title_post mb-3">{{ best_post_today.title }}</h3>
+                    <div class="mb-2">
+                        {% for tag in best_post_today.tag.all %}
+                            <span><a href="{% url 'tag' tag.slug %}"
+                                     class="mr-1 badge badge-info">#{{ tag }}</a></span>
+                        {% endfor %}
+                    </div>
+                    <p class="pers_and_date"><a
+                            href="{% url 'author_page' best_post_today.author.username %}">{{ best_post_today.author.first_name }} {{ best_post_today.author.last_name }}</a>
+                        | Май 23.2023</p>
+                    <p class="context_post">{{ best_post_today.content|safe|truncatechars:200 }}</p>
+                    <div class="col-12">
+                        <a href="{% url 'post_detail' best_post_today.slug %}"
+                           class="btn btn-outline-success mt-3 best_post_btn">Узнать больше</a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 blog_best_post__img">
+                    <img src="{{ best_post_today.image.url }}"
+                         alt="post" class="responsive ms-md-5">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="blog_all_post">
+        <div class="container">
+            <div class="row mb-3">
+                <h1>Все посты</h1>
+            </div>
+            <div class="container-fluid blog_all_post__content">
+                {% for post in page_obj %}
+                    <div class="row mb-5">
+                        <div class="col-md-5 col-sm-12 blog_all_post__content__img">
+                            <img src="{{ post.image.url }}" alt="post_img" class="responsive">
+                        </div>
+                        <div class="col-md-7 col-sm-12 d-flex flex-column justify-content-center">
+                            <p class="text-uppercase pers_and_date"><a href="">{{ post.category.title }}</a></p>
+                            <a href="{% url 'post_detail' post.slug %}"><h3
+                                    class="title_post mb-3">{{ post.title }}</h3></a>
+                            <div class="mb-2">
+                                {% for tag in post.tag.all %}
+                                    <span><a href="{% url 'tag' tag.slug %}"
+                                             class="mr-1 badge badge-info">#{{ tag }}</a></span>
+                                {% endfor %}
+                            </div>
+                            <p class="context_post">{{ post.content|safe|truncatechars:200 }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
 
 
+{% block pagination %}
+    {% include 'blog/block/paginator.html' %}
 {% endblock %}

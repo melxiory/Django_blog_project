@@ -33,6 +33,7 @@ class Profile(models.Model):
 
 class Category(models.Model):
     title = models.CharField(max_length=50, verbose_name='Название')
+    slug = models.SlugField(max_length=200, verbose_name='Слаг')
     description = models.CharField(max_length=250, verbose_name='Описание')
     image = models.ImageField(verbose_name='Иконка', upload_to='media/category_icons')
 

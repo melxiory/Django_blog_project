@@ -1,6 +1,6 @@
 {% extends 'blog/base.html' %}
 {% load static %}
-{% block title %}Поиск по тегу{% endblock %}
+{% block title %}Поиск по категории{% endblock %}
 
 
 {% block content %}
@@ -9,7 +9,10 @@
         <div class="container">
             <div class="row text-center">
                 <div class="col-12 mb-4">
-                    <h1>{{ title }}</h1>
+                    <h1>{{ title.title }}</h1>
+                </div>
+                <div class="col-12 mb-4">
+                    <p>{{ title.description }}</p>
                 </div>
             </div>
         </div>
@@ -43,7 +46,7 @@
                 <div class="col-md-3 col-sm-12 ps-sm-5">
                     <div class="row category__content__category">
                         <div class="col-12 mb-4">
-                            <h2>Category</h2>
+                            <h2>Категории</h2>
                         </div>
                         {% for category in categories %}
                             <a href="#" class="col-12 mb-3">
@@ -56,7 +59,7 @@
                     </div>
                     <div class="row mt-5 md-4 category__content__tags">
                         <div class="col-12 mb-4">
-                            <h2>Tags</h2>
+                            <h2>Теги</h2>
                         </div>
                         <div class="col-12 d-flex flex-wrap">
                             {% for tag in common_tags %}

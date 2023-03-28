@@ -53,6 +53,7 @@ h1, h2, h3, h4, h5, .contact__content__btn{
     color: black;
 }
 
+
 /*######### HOME ##########*/
 /* Навигационный бар */
 
@@ -122,6 +123,10 @@ header {
 
 .carousel_sect{
     background-color: var(--color_lightgrey);
+}
+
+.carousel_sect h5{
+    color: white;
 }
 /* Посты домашней страницы */
 
@@ -203,6 +208,11 @@ header {
     --bs-btn-disabled-border-color: var(--color_yellow);
     --bs-btn-hover-color: var(--color_yellow);
     --bs-btn-active-color: var(--color_black);
+}
+
+.category__content__category__btn img {
+    height: 50px;
+    width: 50px;
 }
 
 /* Подвал */
@@ -310,7 +320,7 @@ footer .cont_icons{
 
 .blog_all_post {
     max-width: 1440px;
-    padding: 80px 0;
+    padding: 80px 0 20px 0;
 }
 
 .blog_all_post__content {
@@ -441,7 +451,7 @@ footer .cont_icons{
     align-items: center;
     background-color: white;
     color: var(--color_black);
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
 }
 
@@ -511,6 +521,10 @@ footer .cont_icons{
     height: 60px;
 }
 
+.contact__content__contacts h4{
+    color: white;
+}
+
 /*######### PRIVACY POLICY ##########*/
 /* Титул */
 
@@ -537,4 +551,20 @@ footer .cont_icons{
 
 .foot_down {
     min-height: calc(100vh - 400px);
+}
+
+/*######### Tag ##########*/
+.tag_btn {
+    --bs-btn-color: var(--color_purple);
+    --bs-btn-border-color: var(--color_purple);
+    --bs-btn-hover-bg: var(--color_purple);
+    --bs-btn-hover-border-color: var(--color_purple);
+    --bs-btn-active-bg: var(--color_purple);
+    --bs-btn-active-border-color: var(--color_purple);
+    --bs-btn-disabled-color: var(--color_purple);
+    --bs-btn-disabled-border-color: var(--color_purple);
+    --bs-btn-hover-color: var(--bs-white);
+    --bs-btn-active-color: var(--bs-white);
+    color: var(--color_purple);
+    border: 1px solid var(--color_purple);
 }

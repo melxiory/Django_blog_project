@@ -13,7 +13,7 @@
                         <a class="nav-link" href="{% url 'main' %}">Дом</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Блог</a>
+                        <a class="nav-link" href="{% url 'posts' %}">Блог</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'contact' %}">Связь</a>
@@ -22,15 +22,15 @@
                         <a class="nav-link" href="{% url 'about_us' %}">О нас</a>
                     </li>
                 </ul>
-                <form action="#" class="d-flex me-sm-4" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Что найти?!" aria-label="Search">
+                <form action="{% url 'search_results' %}" class="d-flex me-sm-4" role="search">
+                    <input name="q" class="form-control me-2" type="search" placeholder="Что найти?!" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Найти</button>
                 </form>
                 {% if user.is_authenticated %}
-                <span class="navbar-text me-3">{{ user }}</span>
-                <a href="{% url 'signout' %}" class="btn btn-outline-success mt-2 mb-2 btn_sign_up">Выйти</a>
+                    <span class="navbar-text me-4">{{ user }}</span>
+                    <a href="{% url 'signout' %}" class="btn btn-outline-success mt-2 mb-2 btn_sign_up">Выйти</a>
                 {% else %}
-                <a href="{% url 'signin' %}" class="btn btn-outline-success mt-2 mb-2 btn_sign_up">Войти</a>
+                    <a href="{% url 'signin' %}" class="btn btn-outline-success mt-2 mb-2 btn_sign_up">Войти</a>
                 {% endif %}
             </nav>
         </div>
