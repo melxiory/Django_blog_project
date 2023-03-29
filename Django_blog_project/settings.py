@@ -38,9 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog.apps.BlogConfig',
+    'send_mail.apps.SendMailConfig',
     'taggit',
     'ckeditor',
     'ckeditor_uploader',
+    'mptt',
 ]
 
 MIDDLEWARE = [
@@ -172,3 +174,8 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'sibagatullinnail@gmail.com'
 EMAIL_HOST_PASSWORD = ''
 ###################################
+
+COMMENTS_APP = 'threadedcomments'
+
+
+SITE_ID = 1

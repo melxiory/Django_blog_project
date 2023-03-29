@@ -1,5 +1,6 @@
 {% extends 'blog/base.html' %}
 {% load static %}
+{% load mptt_tags %}
 {% block title %}Страница поста{% endblock %}
 
 
@@ -22,7 +23,7 @@
                 <h2 class="mb-5 mt-5">{{ post.title }}</h2>
                 <div class="d-flex flex-row blog_post__title__content__category mb-5">
                     <img src="{{ post.category.image.url }}" alt="icon" class="responsive">
-                    <p class="text-uppercase pers_and_date m-0 ms-2"><a href="#">{{ post.category.title }}</a></p>
+                    <p class="text-uppercase pers_and_date m-0 ms-2"><a href="{% url 'category' post.category.slug %}">{{ post.category.title }}</a></p>
                 </div>
             </div>
         </div>
@@ -36,8 +37,17 @@
             <div class="row md-4 mt-4 blog_post__post__text p-lg-format p-md-format">
                 {{ post.content|safe }}
             </div>
+            <div class="card border-0 mt-5">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        Комментарии
+                    </h5>
+                    {% include 'blog/comments/comments_list.html' %}
+                </div>
+            </div>
         </div>
     </section>
+
 
     <section class="blog_post__cards_read_next">
         <div class="container">
@@ -60,5 +70,6 @@
             </div>
         </div>
     </section>
+
 
 {% endblock %}

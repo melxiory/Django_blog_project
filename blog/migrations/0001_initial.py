@@ -55,18 +55,4 @@ class Migration(migrations.Migration):
                 ('tag', taggit.managers.TaggableManager(help_text='A comma-separated list of tags.', through='taggit.TaggedItem', to='taggit.Tag', verbose_name='Tags')),
             ],
         ),
-        migrations.CreateModel(
-            name='Comment',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('content', models.TextField(default='', max_length=500, verbose_name='Содержание')),
-                ('created_date', models.DateTimeField(default=django.utils.timezone.now)),
-                ('parent', models.ForeignKey(blank=True, default=None, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='parent_%(class)s', to='blog.comment', verbose_name='parent comment')),
-                ('post', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='comments', to='blog.post')),
-                ('username', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='user_name', to=settings.AUTH_USER_MODEL)),
-            ],
-            options={
-                'ordering': ['-created_date'],
-            },
-        ),
     ]

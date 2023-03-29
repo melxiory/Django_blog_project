@@ -22,10 +22,6 @@ class Migration(migrations.Migration):
             options={'verbose_name': 'Категории', 'verbose_name_plural': 'Категории'},
         ),
         migrations.AlterModelOptions(
-            name='comment',
-            options={'ordering': ['-created_date'], 'verbose_name': 'Комментарии', 'verbose_name_plural': 'Комментарии'},
-        ),
-        migrations.AlterModelOptions(
             name='post',
             options={'verbose_name': 'Пост', 'verbose_name_plural': 'Пост'},
         ),
@@ -53,26 +49,6 @@ class Migration(migrations.Migration):
             model_name='category',
             name='title',
             field=models.CharField(max_length=50, verbose_name='Название'),
-        ),
-        migrations.AlterField(
-            model_name='comment',
-            name='created_date',
-            field=models.DateTimeField(default=django.utils.timezone.now, verbose_name='Дата создания'),
-        ),
-        migrations.AlterField(
-            model_name='comment',
-            name='parent',
-            field=models.ForeignKey(blank=True, default=None, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='parent_%(class)s', to='blog.comment', verbose_name='Родительский комментарий'),
-        ),
-        migrations.AlterField(
-            model_name='comment',
-            name='post',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='comments', to='blog.post', verbose_name='Пост'),
-        ),
-        migrations.AlterField(
-            model_name='comment',
-            name='username',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='user_name', to=settings.AUTH_USER_MODEL, verbose_name='Автор'),
         ),
         migrations.AlterField(
             model_name='post',

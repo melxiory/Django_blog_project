@@ -2,8 +2,11 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.urls import reverse
 from django.utils import timezone
 from ckeditor_uploader.fields import RichTextUploadingField
+from mptt.fields import TreeForeignKey
+from mptt.models import MPTTModel
 from taggit.managers import TaggableManager
 
 
@@ -71,25 +74,59 @@ class Post(models.Model):
         verbose_name = 'Пост'
         verbose_name_plural = 'Пост'
 
+    def get_absolute_url(self):
+        return reverse('post_detail', kwargs={'slug': self.slug})
 
-class Comment(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments', verbose_name='Пост')
-    username = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_name', verbose_name='Автор')
-    content = models.TextField('Содержание', max_length=500, default='')
-    created_date = models.DateTimeField(default=timezone.now, verbose_name='Дата создания')
-    parent = models.ForeignKey(
-        'self',
-        default=None,
-        blank=True, null=True,
-        on_delete=models.CASCADE,
-        related_name='parent_%(class)s',
-        verbose_name='Родительский комментарий'
+# class Comment(models.Model):
+#     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments', verbose_name='Пост')
+#     username = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_name', verbose_name='Автор')
+#     content = models.TextField('Содержание', max_length=500, default='')
+#     created_date = models.DateTimeField(default=timezone.now, verbose_name='Дата создания')
+#     parent = models.ForeignKey(
+#         'self',
+#         default=None,
+#         blank=True, null=True,
+#         on_delete=models.CASCADE,
+#         related_name='parent_%(class)s',
+#         verbose_name='Родительский комментарий'
+#     )
+#
+#     class Meta:
+#         verbose_name = 'Комментарии'
+#         ordering = ['-created_date']
+#         verbose_name_plural = 'Комментарии'
+#
+#     def __str__(self):
+#         return self.post.title
+
+class Comment(MPTTModel):
+    """
+    Модель древовидных комментариев
+    """
+
+    STATUS_OPTIONS = (
+        ('published', 'Опубликовано'),
+        ('draft', 'Черновик')
     )
 
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, verbose_name='Статья', related_name='comments')
+    author = models.ForeignKey(User, verbose_name='Автор комментария', on_delete=models.CASCADE,
+                               related_name='comments_author')
+    content = models.TextField(verbose_name='Текст комментария', max_length=3000)
+    time_create = models.DateTimeField(verbose_name='Время добавления', auto_now_add=True)
+    time_update = models.DateTimeField(verbose_name='Время обновления', auto_now=True)
+    status = models.CharField(choices=STATUS_OPTIONS, default='published', verbose_name='Статус поста', max_length=10)
+    parent = TreeForeignKey('self', verbose_name='Родительский комментарий', null=True, blank=True,
+                            related_name='children', on_delete=models.CASCADE)
+
+    class MTTMeta:
+        order_insertion_by = ('-time_create',)
+
     class Meta:
-        verbose_name = 'Комментарии'
-        ordering = ['-created_date']
+        indexes = [models.Index(fields=['-time_create', 'time_update', 'status', 'parent'])]
+        ordering = ['-time_create']
+        verbose_name = 'Комментарий'
         verbose_name_plural = 'Комментарии'
 
     def __str__(self):
-        return self.post.title
+        return f'{self.author}:{self.content}'

@@ -1,14 +1,16 @@
 from django.contrib.auth import login, authenticate
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.mail import send_mail
 from django.db.models import Q
 from django.http import HttpResponseRedirect, BadHeaderError, HttpResponse
 from django.contrib.auth.models import User
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
 from django.core.paginator import Paginator
+from django.views.generic import CreateView
 from taggit.models import Tag
 from blog.models import Category, Post, Comment
-from .forms import SignInForm, SigUpForm, FeedBackForm
+from .forms import SignInForm, SigUpForm, FeedBackForm, CommentCreateForm
 
 
 class MainView(View):
@@ -54,24 +56,43 @@ class PostsView(View):
         })
 
 
+class CommentCreateView(LoginRequiredMixin, CreateView):
+    model = Comment
+    form_class = CommentCreateForm
+
+    def form_invalid(self, form):
+        return super().form_invalid(form)
+
+    def form_valid(self, form):
+        comment = form.save(commit=False)
+        comment.post_id = self.kwargs.get('pk')
+        comment.author = self.request.user
+        comment.parent_id = form.cleaned_data.get('parent')
+        comment.save()
+
+        return redirect(comment.post.get_absolute_url())
+
+
 class PostDetailView(View):
     def get(self, request, slug, *args, **kwargs):
         post = get_object_or_404(Post, slug=slug)
         common_tags = Post.tag.most_common()
         last_posts = Post.objects.all().order_by('-id')[:3]
+        comment_form = CommentCreateForm()
         return render(request, 'blog/post_details.html', context={
             'post': post,
             'common_tags': common_tags,
             'last_posts': last_posts,
+            'form': comment_form
         })
 
     # def post(self, request, slug, *args, **kwargs):
-    #     comment_form = CommentForm(request.POST)
+    #     comment_form = CommentCreateForm(request.POST)
     #     if comment_form.is_valid():
-    #         text = request.POST['text']
+    #         content = request.POST['content']
     #         username = self.request.user
     #         post = get_object_or_404(Post, url=slug)
-    #         comment = Comment.objects.create(post=post, username=username, text=text)
+    #         Comment.objects.create(post=post, author=username, content=content)
     #         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
     #     return render(request, 'blog/post_details.html', context={
     #         'comment_form': comment_form
