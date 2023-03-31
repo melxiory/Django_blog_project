@@ -1,4 +1,5 @@
 {% load static %}
+{% load contact_tags %}
 <footer>
     <div class="container-fluid">
         <nav class="navbar navbar-expand-lg bg-body-tertiary nav_mod" data-bs-theme="dark">
@@ -35,14 +36,7 @@
                 <p class="subscribe_title m-0">Подпишитесь на нашу рассылку, чтобы получать последние обновления и новости</p>
             </div>
             <div class="col-md-6 col-sm-12 email_subs">
-                <form action="#" class="row row-cols-lg-auto">
-                    <div class="col-sm-10 mt-lg-0 mt-3">
-                        <input type="email" class="form-control" id="colFormLabel" placeholder="Enter Your Email">
-                    </div>
-                    <div class="col-12 mt-lg-0 mt-3">
-                        <button class="btn btn-outline-success" type="submit">Подписаться</button>
-                    </div>
-                </form>
+                {% contact_form %}
             </div>
         </div>
         <div class="row contacts pt-3">

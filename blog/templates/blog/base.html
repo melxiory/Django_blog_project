@@ -11,13 +11,13 @@
     <link rel="icon" href="data:;base64,=">
 </head>
 <body>
-{% include './block/header.html' %}
+{% include 'blog/block/header.html' %}
 
 {% block content %}{% endblock %}
 
 {% block pagination %}{% endblock %}
 
-{% include './block/footer.html' %}
+{% include 'blog/block/footer.html' %}
 
 <script src='{% static "js/bootstrap.bundle.min.js" %}'></script>
 <script src='{% static "js/script.js" %}'></script>
