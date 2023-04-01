@@ -77,32 +77,8 @@ class Post(models.Model):
     def get_absolute_url(self):
         return reverse('post_detail', kwargs={'slug': self.slug})
 
-# class Comment(models.Model):
-#     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments', verbose_name='Пост')
-#     username = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_name', verbose_name='Автор')
-#     content = models.TextField('Содержание', max_length=500, default='')
-#     created_date = models.DateTimeField(default=timezone.now, verbose_name='Дата создания')
-#     parent = models.ForeignKey(
-#         'self',
-#         default=None,
-#         blank=True, null=True,
-#         on_delete=models.CASCADE,
-#         related_name='parent_%(class)s',
-#         verbose_name='Родительский комментарий'
-#     )
-#
-#     class Meta:
-#         verbose_name = 'Комментарии'
-#         ordering = ['-created_date']
-#         verbose_name_plural = 'Комментарии'
-#
-#     def __str__(self):
-#         return self.post.title
 
 class Comment(MPTTModel):
-    """
-    Модель древовидных комментариев
-    """
 
     STATUS_OPTIONS = (
         ('published', 'Опубликовано'),

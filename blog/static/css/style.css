@@ -588,3 +588,29 @@ footer .cont_icons {
     object-fit: cover;
     border-radius: 50%;
 }
+
+
+/*######### Profile ##########*/
+
+.profile_title {
+    background-color: var(--color_lightgrey);
+}
+
+
+.profile_title .container {
+    max-width: 1440px;
+    padding: 80px 40px;
+}
+
+/*######### Profile edit ##########*/
+
+
+
+/*######### Post create ##########*/
+
+.post_create__content .container {
+    background-color: var(--color_lightgrey);
+    max-width: 1440px;
+    padding: 80px 265px;
+}
+

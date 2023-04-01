@@ -27,7 +27,7 @@
                     <button class="btn btn-outline-success" type="submit">Найти</button>
                 </form>
                 {% if user.is_authenticated %}
-                    <span class="navbar-text me-4">{{ user }}</span>
+                    <a href="{% url 'profile_detail' user.pk %}"><span class="navbar-text me-4">{{ user }}</span></a>
                     <a href="{% url 'signout' %}" class="btn btn-outline-success mt-2 mb-2 btn_sign_up">Выйти</a>
                 {% else %}
                     <a href="{% url 'signin' %}" class="btn btn-outline-success mt-2 mb-2 btn_sign_up">Войти</a>

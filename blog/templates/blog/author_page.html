@@ -14,9 +14,8 @@
                 <div class="col-lg-9 col-sm-12 d-flex flex-column justify-content-center">
                     <h1 class="mb-4">Привет, Меня зовут <span>{{ author.first_name }} {{ author.last_name }}</span> и
                         добро пожаловать в мой блог!</h1>
-                    <p class="mb-4">Важно заботиться о пациенте, следить за врачом, но это время великой боли и
-                        страданий. Ибо масса тоже не льстит. Шоколадный мультфильм в каком-то салате. Но смех адиписца
-                        на земле.</p>
+                    <p>Обо мне:</p>
+                    <p class="mb-4">{{ author.profile.bio }}</p>
                     <div class="cont_icons mb-4">
                         <a href="#" class="bi bi-facebook m-2"></a>
                         <a href="#" class="bi bi-instagram m-2"></a>
@@ -36,7 +35,7 @@
             <div class="row">
                 <h1 class="mb-5">Мои посты</h1>
             </div>
-            {% for post in my_posts %}
+            {% for post in page_obj %}
                 <div class="row mb-5">
                     <div class="col-md-5 col-sm-12 blog_all_post__content__img">
                         <img src={{ post.image.url }} alt="post_img" class="responsive">
@@ -51,4 +50,8 @@
         </div>
     </section>
 
+{% endblock %}
+
+{% block pagination %}
+    {% include 'blog/block/paginator.html' %}
 {% endblock %}

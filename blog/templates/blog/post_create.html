@@ -1,0 +1,26 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block title %}Все посты{% endblock %}
+
+
+{% block content %}
+    <section class="post_create__content">
+        <div class="container">
+            <div class="card mb-3 border-0 nth-shadow">
+                <div class="card-body">
+                    <div class="card-title nth-card-title text-center mb-3">
+                        <h3>Добавление статьи</h3>
+                    </div>
+                    <form method="post" action="{% url 'post_create' %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.media }}
+                        {{ form.as_p }}
+                        <div class="d-grid gap-2 mt-5">
+                            <button type="submit" class="btn best_post_btn btn-lg">Добавить статью</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

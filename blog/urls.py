@@ -18,4 +18,8 @@ urlpatterns = [
     path('privacy-policy/', PrivacyPolicy.as_view(), name='privacy_policy'),
     path('<str:user_name>', AuthorPage.as_view(), name='author_page'),
     path('blog/<int:pk>/comments/create/', CommentCreateView.as_view(), name='comment_create_view'),
+    path('user/edit/', ProfileUpdateView.as_view(), name='profile_edit'),
+    path('user/<int:pk>/', ProfileDetailView.as_view(), name='profile_detail'),
+    path('post/create/', PostCreateView.as_view(), name='post_create'),
+    path('post/<str:slug>/update/', PostUpdateView.as_view(), name='post_update'),
 ]

@@ -49,7 +49,7 @@
                         <img src={{ best_post_today.image.url }} alt="post" class="responsive">
                         <p class="pers_and_date"><a
                                 href="{% url 'author_page' best_post_today.author.username %}">{{ best_post_today.author.first_name }} {{ best_post_today.author.last_name }}</a>
-                            |{{ best_post_today.created_at }}</p>
+                            | {{ best_post_today.created_at }}</p>
                         <h3 class="title_post">{{ best_post_today.title }}</h3>
                         {% for tag in best_post_today.tag.all %}
                             <span><a href="{% url 'tag' tag.slug %}" class="mr-1 badge badge-info">#{{ tag }}</a></span>

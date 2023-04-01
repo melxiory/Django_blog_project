@@ -19,7 +19,7 @@
                     </div>
                     <p class="pers_and_date"><a
                             href="{% url 'author_page' best_post_today.author.username %}">{{ best_post_today.author.first_name }} {{ best_post_today.author.last_name }}</a>
-                        | Май 23.2023</p>
+                        | {{ best_post_today.created_at }}</p>
                     <p class="context_post">{{ best_post_today.content|safe|truncatechars:200 }}</p>
                     <div class="col-12">
                         <a href="{% url 'post_detail' best_post_today.slug %}"

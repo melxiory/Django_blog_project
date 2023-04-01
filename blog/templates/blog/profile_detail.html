@@ -1,0 +1,70 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block title %}Профиль{% endblock %}
+
+{% block content %}
+    <section class="profile_title">
+        <div class="container">
+            <div class="card border-0">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <figure>
+                                <img src="{{ user.profile.avatar.url }}" class="img-fluid rounded-0"
+                                     alt="{{ user.profile }}">
+                            </figure>
+                        </div>
+                        <div class="col-md-9">
+                            <h5 class="card-title">
+                                {{ user.profile }}
+                            </h5>
+                            <div class="card-text">
+                                <ul>
+                                    <li>Никнейм: {{ user.username }}</li>
+                                    <li>Имя и фамилия: {{ user.first_name }} {{ user.last_name }}</li>
+                                    <li>Заходил: {{ user.last_login }}</li>
+                                    <li>Дата рождения: {{ user.profile.birth_date }}</li>
+                                    <li>О себе: {{ user.profile.bio }}</li>
+                                </ul>
+                                <a href="{% url 'profile_edit' %}" class="btn btn-sm best_post_btn">Редактировать
+                                    профиль</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="author__my_post">
+        <div class="container p-lg-format p-md-format">
+            <div class="row mb-5">
+                <div class="d-grid gap-2">
+                    <a href="{% url 'post_create' %}"
+                       class="btn btn-outline-success  best_post_btn btn-lg">Добавить пост</a>
+                </div>
+            </div>
+            <div class="row">
+                <h1 class="mb-5">Мои посты</h1>
+            </div>
+            {% for post in page_obj %}
+                <div class="row mb-5">
+                    <div class="col-md-5 col-sm-12 blog_all_post__content__img">
+                        <img src={{ post.image.url }} alt="post_img" class="responsive">
+                    </div>
+                    <div class="col-md-7 col-sm-12 d-flex flex-column justify-content-center">
+                        <p class="text-uppercase pers_and_date"><a href="#">{{ post.category }}</a></p>
+                        <a href="{% url 'post_detail' post.slug %}"><h3 class="title_post mb-3">{{ post.title }}</h3>
+                        </a>
+                        <p class="context_post">{{ post.content|safe|truncatechars:200 }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block pagination %}
+    {% include 'blog/block/paginator.html' %}
+{% endblock %}

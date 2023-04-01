@@ -2,7 +2,43 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 
-from blog.models import Comment
+from blog.models import Comment, Profile, Post
+
+
+class UserUpdateForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'first_name', 'last_name')
+
+    def __init__(self, *args, **kwargs):
+
+        super().__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs.update({
+                'class': 'form-control',
+                'autocomplete': 'off'
+            })
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        username = self.cleaned_data.get('username')
+        if email and User.objects.filter(email=email).exclude(username=username).exists():
+            raise forms.ValidationError('Email адрес должен быть уникальным')
+        return email
+
+
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('location', 'birth_date', 'bio', 'avatar')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs.update({
+                'class': 'form-control',
+                'autocomplete': 'off'
+            })
 
 
 class SigUpForm(forms.Form):
@@ -121,25 +157,38 @@ class FeedBackForm(forms.Form):
     )
 
 
-# class CommentForm(forms.ModelForm):
-#     class Meta:
-#         model = Comment
-#         fields = ('text',)
-#         widgets = {
-#             'content': forms.Textarea(attrs={
-#                 'class': 'form-control',
-#                 'rows': 3
-#             }),
-#         }
-
-
 class CommentCreateForm(forms.ModelForm):
-    """
-    Форма добавления комментариев к статьям
-    """
     parent = forms.IntegerField(widget=forms.HiddenInput, required=False)
-    content = forms.CharField(label='', widget=forms.Textarea(attrs={'cols': 30, 'rows': 5, 'placeholder': 'Комментарий', 'class': 'form-control'}))
+    content = forms.CharField(label='', widget=forms.Textarea(
+        attrs={'cols': 30, 'rows': 5, 'placeholder': 'Комментарий', 'class': 'form-control'}))
 
     class Meta:
         model = Comment
         fields = ('content',)
+
+
+class PostCreateForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ('title', 'slug', 'category', 'tag', 'content', 'status')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs.update({'class': 'form-control', 'autocomplete': 'off'})
+
+        self.fields['content'].widget.attrs.update({'class': 'form-control ckeditor'})
+        self.fields['content'].required = False
+
+
+class PostUpdateForm(PostCreateForm):
+    class Meta:
+        model = Post
+        fields = PostCreateForm.Meta.fields
+
+    def __init__(self, *args, **kwargs):
+
+        super().__init__(*args, **kwargs)
+
+        self.fields['content'].widget.attrs.update({'class': 'form-control ckeditor'})
+        self.fields['content'].required = False

@@ -1,16 +1,19 @@
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.mail import send_mail
+from django.db import transaction
 from django.db.models import Q
 from django.http import HttpResponseRedirect, BadHeaderError, HttpResponse
 from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse_lazy
 from django.views import View
 from django.core.paginator import Paginator
-from django.views.generic import CreateView
+from django.views.generic import CreateView, UpdateView
 from taggit.models import Tag
-from blog.models import Category, Post, Comment
-from .forms import SignInForm, SigUpForm, FeedBackForm, CommentCreateForm
+from blog.models import Category, Post, Comment, Profile
+from .forms import SignInForm, SigUpForm, FeedBackForm, CommentCreateForm, ProfileUpdateForm, UserUpdateForm, \
+    PostCreateForm, PostUpdateForm
 
 
 class MainView(View):
@@ -34,10 +37,13 @@ class AuthorPage(View):
     def get(self, request, user_name, *args, **kwargs):
         username = get_object_or_404(User, username=user_name)
         author = User.objects.get(username=username)
-        my_posts = Post.objects.filter(author=author.id)
+        posts = Post.objects.filter(author=author.id)
+        paginator = Paginator(posts, 6)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
 
         return render(request, 'blog/author_page.html', context={
-            'my_posts': my_posts,
+            'page_obj': page_obj,
             'author': author,
         })
 
@@ -85,7 +91,6 @@ class PostDetailView(View):
             'last_posts': last_posts,
             'form': comment_form
         })
-
 
 
 class SignUpView(View):
@@ -215,3 +220,84 @@ class CategoryView(View):
             'common_tags': common_tags,
             'categories': categories,
         })
+
+
+class ProfileDetailView(View):
+    def get(self, request, pk, *args, **kwargs):
+        user = get_object_or_404(User, pk=pk)
+        posts = Post.objects.filter(author=user.pk)
+        paginator = Paginator(posts, 6)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+
+        return render(request, 'blog/profile_detail.html', context={
+            'page_obj': page_obj,
+            'user': user,
+        })
+
+
+class ProfileUpdateView(UpdateView):
+    model = Profile
+    form_class = ProfileUpdateForm
+    template_name = 'blog/profile_edit.html'
+
+    def get_object(self, queryset=None):
+        return self.request.user.profile
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = f'Редактирование профиля пользователя: {self.request.user.username}'
+        if self.request.POST:
+            context['user_form'] = UserUpdateForm(self.request.POST, instance=self.request.user)
+        else:
+            context['user_form'] = UserUpdateForm(instance=self.request.user)
+        return context
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        user_form = context['user_form']
+        with transaction.atomic():
+            if all([form.is_valid(), user_form.is_valid()]):
+                user_form.save()
+                form.save()
+            else:
+                context.update({'user_form': user_form})
+                return self.render_to_response(context)
+        return super(ProfileUpdateView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('profile_detail', kwargs={'slug': self.object.slug})
+
+
+class PostCreateView(CreateView):
+
+    model = Post
+    template_name = 'blog/post_create.html'
+    form_class = PostCreateForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Добавление статьи на сайт'
+        return context
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.save()
+        return super().form_valid(form)
+
+
+class PostUpdateView(UpdateView):
+
+    model = Post
+    template_name = 'blog/post_update.html'
+    context_object_name = 'post'
+    form_class = PostUpdateForm
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = f'Обновление статьи: {self.object.title}'
+        return context
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
