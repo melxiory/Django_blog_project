@@ -172,10 +172,20 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'sibagatullinnail@gmail.com'
-EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST_PASSWORD = 'uhiufbdclcabemim'
 ###################################
 
 COMMENTS_APP = 'threadedcomments'
 
-
 SITE_ID = 1
+
+JAZZMIN_SETTINGS = {
+    "custom_links": {
+        "send_mail": [{
+            "name": "Отправка новостей всем пользователям",
+            "url": "http://127.0.0.1:8000/send_mail/send/",
+            "icon": "fas fa-comments",
+        }]
+    },
+    "order_with_respect_to": ["send_emails"],
+}

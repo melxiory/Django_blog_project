@@ -86,17 +86,6 @@ class PostDetailView(View):
             'form': comment_form
         })
 
-    # def post(self, request, slug, *args, **kwargs):
-    #     comment_form = CommentCreateForm(request.POST)
-    #     if comment_form.is_valid():
-    #         content = request.POST['content']
-    #         username = self.request.user
-    #         post = get_object_or_404(Post, url=slug)
-    #         Comment.objects.create(post=post, author=username, content=content)
-    #         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
-    #     return render(request, 'blog/post_details.html', context={
-    #         'comment_form': comment_form
-    #     })
 
 
 class SignUpView(View):
