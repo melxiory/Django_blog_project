@@ -35,23 +35,29 @@ section {
     margin: 0 auto;
 }
 
-a{
+a {
     text-decoration: none;
 }
 
-h1, h2, h3, h4, h5, .contact__content__btn{
+h1, h2, h3, h4, h5, .contact__content__btn {
     font-weight: bold;
+    color: black;
 }
 
-.badge-info{
+.badge-info {
     color: white;
     background-color: var(--color_purple);
 }
 
+.cont_icons a {
+    color: black;
+}
+
+
 /*######### HOME ##########*/
 /* Навигационный бар */
 
-.navbar-brand{
+.navbar-brand {
     font-size: 32px;
     font-weight: bold;
 }
@@ -115,9 +121,14 @@ header {
     height: 600px;
 }
 
-.carousel_sect{
+.carousel_sect {
     background-color: var(--color_lightgrey);
 }
+
+.carousel_sect h5 {
+    color: white;
+}
+
 /* Посты домашней страницы */
 
 .home_posts {
@@ -138,7 +149,7 @@ header {
     max-height: 100%;
 }
 
-.best_post p{
+.best_post p {
     padding: 10px 0;
 }
 
@@ -146,7 +157,7 @@ header {
     margin: 0;
 }
 
-.all_posts{
+.all_posts {
     padding: 10px 0;
 }
 
@@ -159,13 +170,14 @@ header {
 .pers_and_date a {
     color: purple;
 }
+
 /* Категории */
-.categories{
+.categories {
     padding: 80px 0;
     background-color: var(--color_lightgrey);
 }
 
-.categories .container{
+.categories .container {
     max-width: 1440px;
 }
 
@@ -185,7 +197,7 @@ header {
     margin-bottom: 20px;
 }
 
-.best_post_btn{
+.best_post_btn {
     color: var(--color_black);
     background-color: var(--color_yellow);
     --bs-btn-color: var(--color_black);
@@ -200,9 +212,14 @@ header {
     --bs-btn-active-color: var(--color_black);
 }
 
+.category__content__category__btn img {
+    height: 50px;
+    width: 50px;
+}
+
 /* Подвал */
 
-footer{
+footer {
     padding: 30px 40px;
     background-color: var(--color_black);
 }
@@ -212,10 +229,10 @@ footer .container-fluid {
 }
 
 .bg-body-tertiary {
-    background-color: var(--color_black)!important;
+    background-color: var(--color_black) !important;
 }
 
-.subscribe{
+.subscribe {
     padding: 30px;
     background-color: var(--color_lightblack);
     margin: 20px 0;
@@ -231,14 +248,14 @@ footer .container-fluid {
     justify-content: end;
 }
 
-footer p{
+footer p {
     margin: 0 auto;
     color: #FFFFFF;
     opacity: 0.7;
     font-size: 12px;
 }
 
-footer .cont_icons{
+footer .cont_icons {
     color: #FFFFFF;
     opacity: 0.7;
 }
@@ -305,7 +322,7 @@ footer .cont_icons{
 
 .blog_all_post {
     max-width: 1440px;
-    padding: 80px 0;
+    padding: 80px 0 20px 0;
 }
 
 .blog_all_post__content {
@@ -313,7 +330,7 @@ footer .cont_icons{
     border-top: 1px solid var(--color_mediumgrey);
 }
 
-.blog_all_post__paginator .pagination{
+.blog_all_post__paginator .pagination {
     --bs-pagination-padding-x: 0.75rem;
     --bs-pagination-padding-y: 0.375rem;
     --bs-pagination-font-size: 1rem;
@@ -343,29 +360,49 @@ footer .cont_icons{
     padding: 80px 0;
 }
 
-.blog_post__post__content {
-    padding: 40px ;
+
+.blog_post__title {
+    background-color: var(--color_lightgrey);
 }
 
-.blog_post__post__content__title {
+.blog_post__title .container {
+    max-width: 1440px;
+}
+
+.blog_post__title__content {
+    padding: 40px;
+}
+
+.blog_post__title__content__title {
     height: 60px;
 }
 
-.blog_post__post__title__content__img {
+.blog_post__title__content__title__img {
     width: 60px;
 }
 
-.blog_post__post__title__img img{
+.blog_post__title__content__title__img img {
     border-radius: 50%;
+    width: 60px;
+    height: 60px;
 }
 
-.blog_post__post__text ul {
-    padding: 0 0 0 40px;
+.blog_post__post__text img {
+    max-width: 1040px;
+    object-fit: cover;
+}
+
+.blog_post__title__content__category {
+    height: 20px;
 }
 
 /* Карты следующих постов */
 
 .blog_post__cards_read_next {
+    background-color: var(--color_lightgrey);
+}
+
+.blog_post__cards_read_next .container {
     max-width: 1440px;
     padding: 80px 0;
 }
@@ -378,7 +415,7 @@ footer .cont_icons{
     background-color: var(--color_lavender);
 }
 
-.about_us__title .container{
+.about_us__title .container {
     max-width: 1440px;
     padding: 80px 80px;
 }
@@ -402,7 +439,7 @@ footer .cont_icons{
 }
 
 
-.category__content  {
+.category__content {
     max-width: 1440px;
     padding: 80px 0;
 }
@@ -416,7 +453,7 @@ footer .cont_icons{
     align-items: center;
     background-color: white;
     color: var(--color_black);
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
 }
 
@@ -456,7 +493,7 @@ footer .cont_icons{
     }
 }
 
-.author__my_post .container{
+.author__my_post .container {
     max-width: 1440px;
 }
 
@@ -486,6 +523,10 @@ footer .cont_icons{
     height: 60px;
 }
 
+.contact__content__contacts h4 {
+    color: white;
+}
+
 /*######### PRIVACY POLICY ##########*/
 /* Титул */
 
@@ -513,3 +554,63 @@ footer .cont_icons{
 .foot_down {
     min-height: calc(100vh - 400px);
 }
+
+/*######### Tag ##########*/
+.tag_btn {
+    --bs-btn-color: var(--color_purple);
+    --bs-btn-border-color: var(--color_purple);
+    --bs-btn-hover-bg: var(--color_purple);
+    --bs-btn-hover-border-color: var(--color_purple);
+    --bs-btn-active-bg: var(--color_purple);
+    --bs-btn-active-border-color: var(--color_purple);
+    --bs-btn-disabled-color: var(--color_purple);
+    --bs-btn-disabled-border-color: var(--color_purple);
+    --bs-btn-hover-color: var(--bs-white);
+    --bs-btn-active-color: var(--bs-white);
+    color: var(--color_purple);
+    border: 1px solid var(--color_purple);
+}
+
+/*######### Comment ##########*/
+
+
+.card {
+    border-radius: 0;
+    padding: 20px;
+    height: auto;
+    width: auto;
+    background-color: var(--color_lightgrey);
+}
+
+.comment__img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+
+/*######### Profile ##########*/
+
+.profile_title {
+    background-color: var(--color_lightgrey);
+}
+
+
+.profile_title .container {
+    max-width: 1440px;
+    padding: 80px 40px;
+}
+
+/*######### Profile edit ##########*/
+
+
+
+/*######### Post create ##########*/
+
+.post_create__content .container {
+    background-color: var(--color_lightgrey);
+    max-width: 1440px;
+    padding: 80px 265px;
+}
+

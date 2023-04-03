@@ -6,10 +6,10 @@ from django.db.models import Q
 from django.http import HttpResponseRedirect, BadHeaderError, HttpResponse
 from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404, redirect
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views import View
 from django.core.paginator import Paginator
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, DeleteView
 from taggit.models import Tag
 from blog.models import Category, Post, Comment, Profile
 from .forms import SignInForm, SigUpForm, FeedBackForm, CommentCreateForm, ProfileUpdateForm, UserUpdateForm, \
@@ -82,6 +82,8 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
 class PostDetailView(View):
     def get(self, request, slug, *args, **kwargs):
         post = get_object_or_404(Post, slug=slug)
+        post.numb_of_views += 1
+        post.save()
         common_tags = Post.tag.most_common()
         last_posts = Post.objects.all().order_by('-id')[:3]
         comment_form = CommentCreateForm()
@@ -270,7 +272,6 @@ class ProfileUpdateView(UpdateView):
 
 
 class PostCreateView(CreateView):
-
     model = Post
     template_name = 'blog/post_create.html'
     form_class = PostCreateForm
@@ -287,7 +288,6 @@ class PostCreateView(CreateView):
 
 
 class PostUpdateView(UpdateView):
-
     model = Post
     template_name = 'blog/post_update.html'
     context_object_name = 'post'
@@ -301,3 +301,10 @@ class PostUpdateView(UpdateView):
     def form_valid(self, form):
         form.save()
         return super().form_valid(form)
+
+
+class PostDeleteView(View):
+    def post(self, request, slug, *args, **kwargs):
+        user = Post.objects.get(slug=slug).author.id
+        Post.objects.get(slug=slug).delete()
+        return HttpResponseRedirect(f'/user/{user}')

@@ -388,8 +388,9 @@ footer .cont_icons {
 }
 
 .blog_post__post__text img {
-    max-width: 1040px;
     object-fit: cover;
+    max-width: 100%;
+    max-height: 100%;
 }
 
 .blog_post__title__content__category {
@@ -604,13 +605,39 @@ footer .cont_icons {
 
 /*######### Profile edit ##########*/
 
+.post_update__content {
+    background-color: var(--color_lightgrey);
+    max-width: 1440px;
+    padding: 80px 0 20px 0;
+}
 
+.btn-delete {
+    color: var(--bs-white);
+    background-color: red;
+    --bs-btn-color: var(--bs-white);
+    --bs-btn-border-color: red;
+    --bs-btn-hover-bg: var(--bs-white);
+    --bs-btn-hover-border-color: red;
+    --bs-btn-active-bg: red;
+    --bs-btn-active-border-color: red;
+    --bs-btn-disabled-color: red;
+    --bs-btn-disabled-border-color: red;
+    --bs-btn-hover-color: red;
+    --bs-btn-active-color: var(--bs-white);
+}
+
+.post_update__content__delete_button {
+    margin-top: 120px;
+}
 
 /*######### Post create ##########*/
 
 .post_create__content .container {
     background-color: var(--color_lightgrey);
     max-width: 1440px;
-    padding: 80px 265px;
+    padding: 80px 0;
 }
 
+#cke_id_content {
+    width: auto !important;
+}

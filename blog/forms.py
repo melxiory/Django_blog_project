@@ -170,7 +170,7 @@ class CommentCreateForm(forms.ModelForm):
 class PostCreateForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ('title', 'slug', 'category', 'tag', 'content', 'status')
+        fields = ('title', 'slug', 'category', 'tag', 'content', 'image', 'status')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
